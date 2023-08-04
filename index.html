@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Calculator</title>
+  <style>body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.calculator {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+  padding-bottom: 6vh;
+  padding-left: 1vh;
+  padding-right: 1vh;
+
+  height: 58lvh;
+}
+
+.display {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  width: 95%;
+  height: 40px;
+  font-size: 18px;
+  padding: 5px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 9.1vh);
+  grid-gap: 10px;
+  height:50vh;
+}
+
+button {
+  width: 100%;
+  
+  font-size: 18px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.operator {
+  background-color: #f57c00;
+  color: #fff;
+}
+
+button:hover {
+  background-color: #ccc;
+}
+</style>
+</head>
+<body>
+    
+  <div class="calculator">
+    <h2 style="margin: 0%;padding-left: 1%;"><em>fx-82 </em>MS</h2>
+    <div class="display">
+      <input type="text" id="result" >
+    </div>
+    <div class="buttons">
+      <button class="operator" onclick="clearDisplay()">C</button>
+      <button class="operator" onclick="removeLastCharacter()">&#9003;</button>
+      <button class="operator" onclick="appendOperator('/')">&#247;</button>
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+      <button class="operator" onclick="appendOperator('*')">&#215;</button>
+      <button onclick="appendNumber('4')">4</button>
+      <button onclick="appendNumber('5')">5</button>
+      <button onclick="appendNumber('6')">6</button>
+      <button class="operator" onclick="appendOperator('-')">&#8722;</button>
+      <button onclick="appendNumber('1')">1</button>
+      <button onclick="appendNumber('2')">2</button>
+      <button onclick="appendNumber('3')">3</button>
+      <button class="operator" onclick="appendOperator('+')">&#43;</button>
+      <button onclick="appendNumber('0')">0</button>
+      <button onclick="appendDecimal('.')">.</button>
+      <button class="operator" onclick="calculateResult()">=</button>
+      <button class="operator" onclick="calculateSquareRoot()">√</button>
+      <button class="operator" onclick="calculateExponentiation()">^</button>
+      <button class="operator" onclick="calculateLog10()">log<span style="font-size:.8vw;">10</span></button>
+      <button class="operator" onclick="appendOperator('(')">(</button>
+      <button class="operator" onclick="calculateLn()">ln</button>
+      <button class="operator" onclick="appendNumber(')')">)</button>
+     
+    </div>
+  </div>
+  
+  <script>let expression = "";
+
+function appendNumber(number) {
+  expression += number;
+  updateDisplay();
+}
+
+function appendOperator(operator) {
+  expression += " " + operator + " ";
+  updateDisplay();
+}
+
+function appendDecimal() {
+  expression += ".";
+  updateDisplay();
+}
+
+function clearDisplay() {
+  expression = "";
+  updateDisplay();
+}
+
+function removeLastCharacter() {
+  expression = expression.slice(0, -1);
+  updateDisplay();
+}
+
+function updateDisplay() {
+  document.getElementById("result").value = expression;
+}
+
+function calculateResult() {
+  try {
+    const result = eval(expression);
+    expression = result.toString();
+    updateDisplay();
+  } catch (error) {
+    expression = "Error";
+    updateDisplay();
+  }
+}
+
+function calculateSquareRoot() {
+  try {
+    const result = Math.sqrt(eval(expression));
+    expression = result.toString();
+    updateDisplay();
+  } catch (error) {
+    expression = "Error";
+    updateDisplay();
+  }
+}
+
+function calculateExponentiation() {
+  try {
+    const result = eval(expression);
+    expression = "Math.pow("+result+",";
+    updateDisplay();
+  } catch (error) {
+    expression = "Error";
+    updateDisplay();
+  }
+}
+function calculateLog10() {
+  try {
+    const result = eval(expression);
+    expression = "log("+result+")";
+    updateDisplay();
+    expression = "Math.log10("+result+")";
+  } catch (error) {
+    expression = "Error";
+    updateDisplay();
+  }
+}
+function calculateLn() {
+  try {
+    const result = eval(expression);
+    expression = "ln("+result+")";
+    document.getElementById("result").value = expression;
+    expression="Math.log("+result+")";
+  } catch (error) {
+    expression = "Error";
+    updateDisplay();
+  }
+}
+document.addEventListener("keydown",function (event) {
+    
+        switch (event.key) {
+        case "1":
+            expression += 1;    
+            break;
+        case "2":
+            expression += 2;    
+            break;
+        case "3":
+            expression += '3';    
+            break;
+            
+        case "4":
+            expression += '4';    
+            break;
+        case "5":
+            expression += '5';    
+            break;
+        case "6":
+            expression += '6';    
+            break;
+        case "7":
+            expression += '7';    
+            break;
+        case "8":
+            expression += '8';    
+            break;
+        case "9":
+            expression += '9';    
+            break;
+        case "0":
+            expression += '0';    
+            break; 
+        case "+":
+            expression += '+';    
+            break; 
+        case "-":
+            expression += '-';    
+            break; 
+        case "*":
+            expression += '*';    
+            break; 
+        case "/":
+            expression += '/';    
+            break; 
+        case ")":
+            expression+=")";
+            break;
+        case "(":
+            expression+='('; 
+            break;
+        case "Backspace":
+            expression = expression.slice(0, -1); 
+            break; 
+        case "Delete":
+            expression = "";  
+            updateDisplay();
+            break;
+        case "Enter":
+        const result = eval(expression);
+        expression = result.toString();
+            updateDisplay();
+            break;             
+        default:
+            break;
+    }  
+        
+    //updateDisplay();
+   
+})
+</script>
+</body>
+</html>
